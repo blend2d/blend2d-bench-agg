@@ -2,8 +2,8 @@
 // Anti-Grain Geometry - Version 2.4
 // Copyright (C) 2002-2005 Maxim Shemanarev (http://www.antigrain.com)
 //
-// Permission to copy, use, modify, sell and distribute this software 
-// is granted provided this copyright notice appears in all copies. 
+// Permission to copy, use, modify, sell and distribute this software
+// is granted provided this copyright notice appears in all copies.
 // This software is provided "as is" without express or implied
 // warranty, and with no claim as to its suitability for any purpose.
 //
@@ -13,7 +13,7 @@
 //          http://www.antigrain.com
 //----------------------------------------------------------------------------
 //
-// Simple arrowhead/arrowtail generator 
+// Simple arrowhead/arrowtail generator
 //
 //----------------------------------------------------------------------------
 
@@ -66,7 +66,7 @@ namespace agg
             m_cmd[3] = path_cmd_line_to;
             m_cmd[4] = path_cmd_line_to;
             m_cmd[5] = path_cmd_line_to;
-            m_cmd[7] = path_cmd_end_poly | path_flags_close | path_flags_ccw;
+            m_cmd[7] = unsigned(path_cmd_end_poly) | unsigned(path_flags_close) | unsigned(path_flags_ccw);
             m_cmd[6] = path_cmd_stop;
             return;
         }
@@ -87,7 +87,7 @@ namespace agg
             m_cmd[1] = path_cmd_line_to;
             m_cmd[2] = path_cmd_line_to;
             m_cmd[3] = path_cmd_line_to;
-            m_cmd[4] = path_cmd_end_poly | path_flags_close | path_flags_ccw;
+            m_cmd[4] = unsigned(path_cmd_end_poly) | unsigned(path_flags_close) | unsigned(path_flags_ccw);
             m_cmd[5] = path_cmd_stop;
             return;
         }

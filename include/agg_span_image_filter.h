@@ -2,8 +2,8 @@
 // Anti-Grain Geometry - Version 2.4
 // Copyright (C) 2002-2005 Maxim Shemanarev (http://www.antigrain.com)
 //
-// Permission to copy, use, modify, sell and distribute this software 
-// is granted provided this copyright notice appears in all copies. 
+// Permission to copy, use, modify, sell and distribute this software
+// is granted provided this copyright notice appears in all copies.
 // This software is provided "as is" without express or implied
 // warranty, and with no claim as to its suitability for any purpose.
 //
@@ -35,9 +35,9 @@ namespace agg
 
         //--------------------------------------------------------------------
         span_image_filter() {}
-        span_image_filter(source_type& src, 
+        span_image_filter(source_type& src,
                           interpolator_type& interpolator,
-                          image_filter_lut* filter) : 
+                          image_filter_lut* filter) :
             m_src(&src),
             m_interpolator(&interpolator),
             m_filter(filter),
@@ -64,8 +64,8 @@ namespace agg
         {
             m_dx_dbl = dx;
             m_dy_dbl = dy;
-            m_dx_int = iround(dx * image_subpixel_scale);
-            m_dy_int = iround(dy * image_subpixel_scale);
+            m_dx_int = iround(dx * double(image_subpixel_scale));
+            m_dy_int = iround(dy * double(image_subpixel_scale));
         }
         void filter_offset(double d) { filter_offset(d, d); }
 
@@ -90,8 +90,8 @@ namespace agg
 
 
     //==============================================span_image_resample_affine
-    template<class Source> 
-    class span_image_resample_affine : 
+    template<class Source>
+    class span_image_resample_affine :
     public span_image_filter<Source, span_interpolator_linear<trans_affine> >
     {
     public:
@@ -100,14 +100,14 @@ namespace agg
         typedef span_image_filter<source_type, interpolator_type> base_type;
 
         //--------------------------------------------------------------------
-        span_image_resample_affine() : 
+        span_image_resample_affine() :
             m_scale_limit(200.0),
             m_blur_x(1.0),
             m_blur_y(1.0)
         {}
 
         //--------------------------------------------------------------------
-        span_image_resample_affine(source_type& src, 
+        span_image_resample_affine(source_type& src,
                                    interpolator_type& inter,
                                    image_filter_lut& filter) :
             base_type(src, inter, &filter),
@@ -129,7 +129,7 @@ namespace agg
         void blur(double v) { m_blur_x = m_blur_y = v; }
 
         //--------------------------------------------------------------------
-        void prepare() 
+        void prepare()
         {
             double scale_x;
             double scale_y;
@@ -177,8 +177,8 @@ namespace agg
 
 
     //=====================================================span_image_resample
-    template<class Source, class Interpolator> 
-    class span_image_resample : 
+    template<class Source, class Interpolator>
+    class span_image_resample :
     public span_image_filter<Source, Interpolator>
     {
     public:
@@ -187,14 +187,14 @@ namespace agg
         typedef span_image_filter<source_type, interpolator_type> base_type;
 
         //--------------------------------------------------------------------
-        span_image_resample() : 
+        span_image_resample() :
             m_scale_limit(20),
             m_blur_x(image_subpixel_scale),
             m_blur_y(image_subpixel_scale)
         {}
 
         //--------------------------------------------------------------------
-        span_image_resample(source_type& src, 
+        span_image_resample(source_type& src,
                             interpolator_type& inter,
                             image_filter_lut& filter) :
             base_type(src, inter, &filter),
@@ -212,7 +212,7 @@ namespace agg
         double blur_y() const { return double(m_blur_y) / double(image_subpixel_scale); }
         void blur_x(double v) { m_blur_x = uround(v * double(image_subpixel_scale)); }
         void blur_y(double v) { m_blur_y = uround(v * double(image_subpixel_scale)); }
-        void blur(double v)   { m_blur_x = 
+        void blur(double v)   { m_blur_x =
                                 m_blur_y = uround(v * double(image_subpixel_scale)); }
 
     protected:
@@ -220,11 +220,11 @@ namespace agg
         {
             if(*rx < image_subpixel_scale) *rx = image_subpixel_scale;
             if(*ry < image_subpixel_scale) *ry = image_subpixel_scale;
-            if(*rx > image_subpixel_scale * m_scale_limit) 
+            if(*rx > image_subpixel_scale * m_scale_limit)
             {
                 *rx = image_subpixel_scale * m_scale_limit;
             }
-            if(*ry > image_subpixel_scale * m_scale_limit) 
+            if(*ry > image_subpixel_scale * m_scale_limit)
             {
                 *ry = image_subpixel_scale * m_scale_limit;
             }
